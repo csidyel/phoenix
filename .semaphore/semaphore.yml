@@ -51,8 +51,8 @@ blocks:
         - name: mix_test Elixir 1.11.4
           commands:
             - sem-version elixir 1.11.4
-            - elixir-1.11.4-deps-$(checksum mix.lock)
-            - elixir-1.11.4-build-$(checksum mix.lock)
+            - cache restore elixir-1.11.4-deps-$(checksum mix.lock)
+            - cache restore elixir-1.11.4-build-$(checksum mix.lock)
             - mix deps.get --only test
             - mix clean
             - mix local.rebar --force
@@ -62,8 +62,8 @@ blocks:
         - name: mix_test Elixir 1.12.3
           commands:
             - sem-version elixir 1.12.3
-            - elixir-1.12.3-deps-$(checksum mix.lock)
-            - elixir-1.12.3-build-$(checksum mix.lock)
+            - cache restore elixir-1.12.3-deps-$(checksum mix.lock)
+            - cache restore elixir-1.12.3-build-$(checksum mix.lock)
             - mix deps.get --only test
             - mix clean
             - mix local.rebar --force
