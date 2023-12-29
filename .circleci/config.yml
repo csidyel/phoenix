@@ -1,26 +1,85 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/configuration-reference/#jobs
+#orbs:
+#  elixir: circleci/elixir@x.y # Replace x.y with the latest version of the Elixir orb
+#  node: circleci/node@x.y    # Replace x.y with the latest version of the Node orb
+
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - mix_test_1.11.4
+      - mix_tesT_1.12.3
+      - npm_test
+      - integration-test-elixir
+
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/configuration-reference/#executor-job
+  mix_test_1.11.4:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
+      - image: cimg/elixir:1.11.4
+    resource_class: medium
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - deps-1.11.4-{{ checksum "mix.lock" }}
+      - run: mix deps.get --only test
+      - run: mix clean
+      - run: mix test
+      - save_cache:
+          key: deps-1.11.4-{{ checksum "mix.lock" }}
+          paths:
+            - deps
+            - _build
+  mix_test_1.12.3:
+    docker:
+      - image: cimg/elixir:1.12.3
+    resource_class: medium
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - deps-1.12.3-{{ checksum "mix.lock" }}
+      - run: mix deps.get --only test
+      - run: mix clean
+      - run: mix test
+      - save_cache:
+          key: deps-1.12.3-{{ checksum "mix.lock" }}
+          paths:
+            - deps
+            - _build
+  npm_test:
+    docker:
+      - image: cimg/node:12.0 # Use the appropriate Node.js image
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - deps-npm-{{ checksum "mix.lock" }}
+      - node/install:
+          node-version: "12.x"
+      - restore_cache:
+          keys:
+            - node-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: npm install and test
+          command: |
+            cd assets
+            npm install
+            npm test
+      - save_cache:
+          key: node-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+
+  integration-test-elixir:
+    docker:
+      - image: cimg/1.14.0-erlang-24.3
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
-
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/configuration-reference/#workflows
-workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
+          name: Download and install earthly
+          command: sudo wget https://github.com/earthly/earthly/releases/download/v0.5.16/earthly-linux-amd64 -O /usr/local/bin/earthly && sudo chmod +x /usr/local/bin/earthly
+      - run:
+          name: Execute integration tests
+          command: earthly -P --build-arg ELIXIR=1.14.0 --build-arg OTP=24.3.4 +integration-test
