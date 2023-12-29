@@ -23,7 +23,8 @@ jobs:
       - restore_cache:
           keys:
             - deps-1.11.4-{{ checksum "mix.lock" }}
-      - run: mix local.hex --force      
+      - run: mix local.hex --force     
+      - run: mix local.rebar --force
       - run: mix deps.get --only test
       - run: mix clean
       - run: mix test
@@ -42,6 +43,7 @@ jobs:
           keys:
             - deps-1.12.3-{{ checksum "mix.lock" }}
       - run: mix local.hex --force      
+      - run: mix local.rebar --force
       - run: mix deps.get --only test
       - run: mix clean
       - run: mix test
@@ -75,7 +77,7 @@ jobs:
 
   integration-test-elixir:
     docker:
-      - image: cimg/elixir:1.14.0-erlang-24.3
+      - image: cimg/current-20.04
     resource_class: medium
     steps:
       - checkout
