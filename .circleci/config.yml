@@ -9,7 +9,7 @@ workflows:
   ci:
     jobs:
       - mix_test_1_11_4
-      - mix_tesT_1_12_3
+      - mix_test_1_12_3
       - npm_test
       - integration-test-elixir
 
