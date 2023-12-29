@@ -48,6 +48,7 @@ blocks:
             - sem-version elixir 1.11.4
             - mix deps.get --only test
             - mix clean
+            - mix local.rebar --force
             - mix test
             - cache store
         - name: mix_test OTP 23.3 Elixir 1.12.3
@@ -55,6 +56,7 @@ blocks:
             - sem-version elixir 1.12.3
             - mix deps.get --only test
             - mix clean
+            - mix local.rebar --force
             - mix test
             - cache store
         - name: mix_test OTP 25.3 Elixir 1.14.5
@@ -62,6 +64,7 @@ blocks:
             - sem-version elixir 1.14.5
             - mix deps.get --only test
             - mix clean
+            - mix local.rebar --force
             - mix test
             - cache store
         - name: mix_test OTP 26.2 Elixir 1.16.0
@@ -69,6 +72,7 @@ blocks:
             - sem-version elixir 1.16.0
             - mix deps.get --only test
             - mix clean
+            - mix local.rebar --force
             - mix compile --warnings-as-errors
             - mix test
             - cd installer
