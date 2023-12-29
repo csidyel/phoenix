@@ -81,7 +81,7 @@ jobs:
     resource_class: medium
     steps:
       - checkout
-      - run: docker --version
+      - setup_remote_docker
       - run: sudo dockerd
       - run:
           name: Download and install earthly
