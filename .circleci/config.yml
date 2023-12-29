@@ -8,13 +8,13 @@ workflows:
   version: 2
   ci:
     jobs:
-      - mix_test_1.11.4
-      - mix_tesT_1.12.3
+      - mix_test_1_11_4
+      - mix_tesT_1_12_3
       - npm_test
       - integration-test-elixir
 
 jobs:
-  mix_test_1.11.4:
+  mix_test_1_11_4:
     docker:
       - image: cimg/elixir:1.11.4
     resource_class: medium
@@ -31,7 +31,7 @@ jobs:
           paths:
             - deps
             - _build
-  mix_test_1.12.3:
+  mix_test_1_12_3:
     docker:
       - image: cimg/elixir:1.12.3
     resource_class: medium
