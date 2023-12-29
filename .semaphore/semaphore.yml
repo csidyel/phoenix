@@ -46,7 +46,6 @@ blocks:
         - name: mix_test OTP 22.3 Elixir 1.11.4
           commands:
             - sem-version elixir 1.11.4
-            - sem-version erlang 22.3
             - mix deps.get --only test
             - mix clean
             - mix test
@@ -54,7 +53,6 @@ blocks:
         - name: mix_test OTP 23.3 Elixir 1.12.3
           commands:
             - sem-version elixir 1.12.3
-            - sem-version erlang 23.3
             - mix deps.get --only test
             - mix clean
             - mix test
@@ -62,7 +60,6 @@ blocks:
         - name: mix_test OTP 25.3 Elixir 1.14.5
           commands:
             - sem-version elixir 1.14.5
-            - sem-version erlang 25.3
             - mix deps.get --only test
             - mix clean
             - mix test
@@ -70,7 +67,6 @@ blocks:
         - name: mix_test OTP 26.2 Elixir 1.16.0
           commands:
             - sem-version elixir 1.16.0
-            - sem-version erlang 26.2
             - mix deps.get --only test
             - mix clean
             - mix compile --warnings-as-errors
