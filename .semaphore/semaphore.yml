@@ -47,21 +47,26 @@ blocks:
       prologue:
         commands:
           - checkout
-          - cache restore
       jobs:
-        - name: mix_test OTP 22.3 Elixir 1.11.4
+        - name: mix_test Elixir 1.11.4
           commands:
             - sem-version elixir 1.11.4
+            - elixir-1.11.4-deps-$(checksum mix.lock)
+            - elixir-1.11.4-build-$(checksum mix.lock)
             - mix deps.get --only test
             - mix clean
             - mix local.rebar --force
             - mix test
-            - cache store
-        - name: mix_test OTP 23.3 Elixir 1.12.3
+            - cache store elixir-1.11.4-deps-$(checksum mix.lock) deps
+            - cache store elixir-1.11.4-build-$(checksum mix.lock) _build
+        - name: mix_test Elixir 1.12.3
           commands:
             - sem-version elixir 1.12.3
+            - elixir-1.12.3-deps-$(checksum mix.lock)
+            - elixir-1.12.3-build-$(checksum mix.lock)
             - mix deps.get --only test
             - mix clean
             - mix local.rebar --force
             - mix test
-            - cache store
+            - cache store elixir-1.12.3-deps-$(checksum mix.lock) deps
+            - cache store elixir-1.12.3-build-$(checksum mix.lock) _build
