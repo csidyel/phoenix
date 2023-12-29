@@ -1,9 +1,15 @@
 version: v1.0
-name: Initial Pipeline
+name: Phoenix tests
 agent:
   machine:
     type: f1-standard-2
     os_image: ubuntu2004
+fail_fast:
+  stop:
+    when: 'true'
+auto_cancel:
+  running:
+    when: 'true'
 blocks:
   - name: npm test
     task:
