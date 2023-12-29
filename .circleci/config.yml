@@ -73,7 +73,7 @@ jobs:
 
   integration-test-elixir:
     docker:
-      - image: cimg/1.14.0-erlang-24.3
+      - image: cimg/elixir:1.14.0-erlang-24.3
     resource_class: medium
     steps:
       - checkout
