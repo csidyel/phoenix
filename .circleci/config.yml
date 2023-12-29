@@ -50,14 +50,13 @@ jobs:
             - _build
   npm_test:
     docker:
-      - image: cimg/node:12.0 # Use the appropriate Node.js image
+      - image: cimg/node:12.22.12 
+    resource_class: medium
     steps:
       - checkout
       - restore_cache:
           keys:
             - deps-npm-{{ checksum "mix.lock" }}
-      - node/install:
-          node-version: "12.x"
       - restore_cache:
           keys:
             - node-cache-{{ checksum "package-lock.json" }}
@@ -75,6 +74,7 @@ jobs:
   integration-test-elixir:
     docker:
       - image: cimg/1.14.0-erlang-24.3
+    resource_class: medium
     steps:
       - checkout
       - run:
