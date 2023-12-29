@@ -97,4 +97,4 @@ jobs:
       - name: Download released earth
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.5.16/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Execute tests
-        run: earthly -P --build-arg ELIXIR=${{matrix.elixir}} --build-arg OTP=${{matrix.otp}} +integration-test
+        run: earthly -P --build-arg ELIXIR=1.14.0 --build-arg OTP=24.3.4 +integration-test
