@@ -77,7 +77,7 @@ jobs:
 
   integration-test-elixir:
     docker:
-      - image: cimg/current-20.04
+      - image: cimg/base:current-20.04
     resource_class: medium
     steps:
       - checkout
