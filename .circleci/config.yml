@@ -82,7 +82,7 @@ jobs:
     steps:
       - checkout
       - run: docker --version
-      - run: sudo systemctl start docker
+      - run: sudo dockerd
       - run:
           name: Download and install earthly
           command: sudo wget https://github.com/earthly/earthly/releases/download/v0.5.16/earthly-linux-amd64 -O /usr/local/bin/earthly && sudo chmod +x /usr/local/bin/earthly
