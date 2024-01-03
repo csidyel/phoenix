@@ -7,9 +7,6 @@ agent:
 fail_fast:
   stop:
     when: 'true'
-auto_cancel:
-  running:
-    when: 'true'
 blocks:
   - name: npm test
     task:
