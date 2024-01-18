@@ -41,7 +41,7 @@ jobs:
         key: deps-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
         restore-keys: |
           deps-${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}
-
+    - run: cat /proc/cpuinfo
     - name: Install dependencies
       run: mix deps.get --only test
 
