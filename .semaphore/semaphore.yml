@@ -2,7 +2,7 @@ version: v1.0
 name: Phoenix tests
 agent:
   machine:
-    type: tf1-standard-2
+    type: tf2-standard-2
     os_image: ubuntu2004
 fail_fast:
   stop:
