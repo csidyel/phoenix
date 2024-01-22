@@ -20,7 +20,7 @@ jobs:
           - elixir: 1.12.3
             otp: 24.3
 
-    runs-on: ubuntu-20.04
+    runs-on: ubicloud
 
     steps:
     - name: Checkout
