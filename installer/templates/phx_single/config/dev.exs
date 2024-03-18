@@ -15,8 +15,8 @@ config :<%= @app_name %>, <%= @endpoint_module %>,
   debug_errors: true,
   secret_key_base: "<%= @secret_key_base_dev %>",
   watchers: <%= if @javascript or @css do %>[<%= if @javascript do %>
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}<%= if @css, do: "," %><% end %><%= if @css do %>
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}<% end %>
+    esbuild: {Esbuild, :install_and_run, [:<%= @app_name %>, ~w(--sourcemap=inline --watch)]}<%= if @css, do: "," %><% end %><%= if @css do %>
+    tailwind: {Tailwind, :install_and_run, [:<%= @app_name %>, ~w(--watch)]}<% end %>
   ]<% else %>[]<% end %>
 
 # ## SSL Support
@@ -46,7 +46,7 @@ config :<%= @app_name %>, <%= @endpoint_module %>,
 config :<%= @app_name %>, <%= @endpoint_module %>,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",<%= if @gettext do %>
+      ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",<%= if @gettext do %>
       ~r"priv/gettext/.*(po)$",<% end %>
       ~r"lib/<%= @lib_web_name %>/(controllers|live|components)/.*(ex|heex)$"
     ]
@@ -65,8 +65,11 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime<%= if @html do %>
 
-# Include HEEx debug annotations as HTML comments in rendered markup
-config :phoenix_live_view, :debug_heex_annotations, true<% end %><%= if @mailer do %>
+config :phoenix_live_view,
+  # Include HEEx debug annotations as HTML comments in rendered markup
+  debug_heex_annotations: true,
+  # Enable helpful, but potentially expensive runtime checks
+  enable_expensive_runtime_checks: true<% end %><%= if @mailer do %>
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false<% end %>

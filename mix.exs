@@ -8,7 +8,7 @@ defmodule Phoenix.MixProject do
     end
   end
 
-  @version "1.7.10"
+  @version "1.7.11"
   @scm_url "https://github.com/phoenixframework/phoenix"
 
   # If the elixir requirement is updated, we need to make the installer
@@ -83,7 +83,7 @@ defmodule Phoenix.MixProject do
       {:castore, ">= 0.0.0"},
 
       # Optional deps
-      {:plug_cowboy, "~> 2.6", optional: true},
+      {:plug_cowboy, "~> 2.7", optional: true},
       {:jason, "~> 1.0", optional: true},
 
       # Docs dependencies (some for cross references)

@@ -626,7 +626,7 @@ We generated a new resource inside our `ShoppingCart` named `CartItem`. This sch
 +   create unique_index(:cart_items, [:cart_id, :product_id])
 ```
 
-We used the `:delete_all` strategy again to enforce data integrity. This way, when a cart or product is deleted from the application, we don't have to rely on application code in our `ShoppingCart` or `Catalog` contexts to worry about cleaning up the records. This keeps our application code decoupled and the data integrity enforcement where it belongs – in the database. We also added a unique constraint to ensure a duplicate product is not allowed to be added to a cart. As with the `product_categories` table, using a multi-column index lets us remove the separate index for the leftmost field (`cart-id`). With our database tables in place, we can now migrate up:
+We used the `:delete_all` strategy again to enforce data integrity. This way, when a cart or product is deleted from the application, we don't have to rely on application code in our `ShoppingCart` or `Catalog` contexts to worry about cleaning up the records. This keeps our application code decoupled and the data integrity enforcement where it belongs – in the database. We also added a unique constraint to ensure a duplicate product is not allowed to be added to a cart. As with the `product_categories` table, using a multi-column index lets us remove the separate index for the leftmost field (`cart_id`). With our database tables in place, we can now migrate up:
 
 ```console
 $ mix ecto.migrate
@@ -1347,6 +1347,12 @@ Nice work! We haven't added payments, but we can already see how our `ShoppingCa
 Great work!
 
 ## FAQ
+
+### When to use code generators?
+
+In this chapter, we have used code generators for schemas, contexts, controllers, and more. If you are happy to move forward with Phoenix defaults, feel free to rely on generators to scaffold large parts of your application. When using Phoenix generators, the main question you need to answer is: does this new functionality (with its schema, table, and fields) belong to one of the existing contexts or a new one?
+
+This way, Phoenix generators guide you to use contexts as namespaces, allowing you to group related functionality, instead of having several dozens of schemas laying around without any structure. And remember: if you're stuck when trying to come up with a context name when the grouped functionality in your system isn't yet clear, you can simply use the plural form of the resource you're creating.
 
 ### How do I structure code inside contexts?
 

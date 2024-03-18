@@ -51,7 +51,7 @@ defmodule Phoenix.Integration.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:swoosh, "~> 1.3"},
-      {:plug_cowboy, "~> 2.5"},
+      {:bandit, "~> 1.0"},
       {:bcrypt_elixir, "~> 3.0"},
       {:argon2_elixir, "~> 3.0"},
       {:pbkdf2_elixir, "~> 2.0"},
@@ -59,9 +59,10 @@ defmodule Phoenix.Integration.MixProject do
       {:heroicons,
        github: "tailwindlabs/heroicons",
        tag: "v2.1.1",
+       sparse: "optimized",
        app: false,
        compile: false,
-       sparse: "optimized"},
+       depth: 1},
       {:finch, "~> 0.13"}
     ]
   end
