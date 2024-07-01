@@ -94,7 +94,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: cat /proc/cpuinfo | grep processor | wc -l
+      - run: echo "# CPU         :$(cat /proc/cpuinfo | grep 'model name' | head -n 1 | cut -d ':' -f 2)"
+      - run: echo "# CPU cores   : $(cat /proc/cpuinfo | grep -c 'model name')"
       - name: Download released earth
         run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.5.16/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
       - name: Execute tests
